@@ -1,13 +1,37 @@
 package routes
 
 import (
+	"ServerLoginAuth/model"
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
 	"net/http"
+	"strconv"
 	"strings"
 )
 
 func Register(ctx *gin.Context) {
+	username := ctx.PostForm("username")
+	password := ctx.PostForm("password")
+	userint, err := strconv.Atoi(username)
+	if err != nil {
+
+	}
+	if model.CheckUserExist(userint) == false {
+		r := make(chan error)
+		go func() {
+			_, err := model.RegisterUser(username, password)
+			r <- err
+		}()
+		err := <-r
+		if err != nil {
+			ctx.JSON(http.StatusInternalServerError, gin.H{"message": "Error on Backend!"})
+			return
+		} else {
+			ctx.JSON(http.StatusOK, gin.H{"message": "Successfully registered user"})
+			return
+		}
+	}
+	ctx.JSON(http.StatusBadRequest, gin.H{"message": "User Already Exists"})
 
 }
 func Login(ctx *gin.Context) {
@@ -22,7 +46,11 @@ func Login(ctx *gin.Context) {
 	}
 
 	// Check for username and password match, usually from a database
-	if username != "1729963" || password != "aimanrahim" {
+	userint, err := strconv.Atoi(username)
+	if err != nil {
+
+	}
+	if model.CheckUser(userint, password) == false {
 		ctx.JSON(http.StatusUnauthorized, gin.H{"error": "Authentication failed"})
 		return
 	}

@@ -1,19 +1,22 @@
 package main
 
 import (
+	"ServerLoginAuth/model/DB"
 	"ServerLoginAuth/routes"
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-contrib/sessions/cookie"
 	"github.com/gin-gonic/gin"
+
 	"net/http"
 )
 
 func main() {
+	DB.DBConn = DB.Setup()
 	r := gin.Default()
 	store := cookie.NewStore([]byte("secret"))
 	r.Use(sessions.Sessions("SESSION_ID", store))
 	r.Use(gin.Logger())
-	r.GET("/register", routes.Register)
+	r.POST("/register", routes.Register)
 	r.POST("/login", routes.Login)
 
 	authenticated := r.Group("/auth")

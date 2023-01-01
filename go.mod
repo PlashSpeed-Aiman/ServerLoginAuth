@@ -3,9 +3,10 @@ module ServerLoginAuth
 go 1.19
 
 require (
-	github.com/gin-contrib/cors v1.4.0
 	github.com/gin-contrib/sessions v0.0.5
 	github.com/gin-gonic/gin v1.8.2
+	github.com/jackc/pgx/v5 v5.2.0
+	golang.org/x/crypto v0.0.0-20220829220503-c86fa9a7ed90
 )
 
 require (
@@ -17,6 +18,9 @@ require (
 	github.com/gorilla/context v1.1.1 // indirect
 	github.com/gorilla/securecookie v1.1.1 // indirect
 	github.com/gorilla/sessions v1.2.1 // indirect
+	github.com/jackc/pgpassfile v1.0.0 // indirect
+	github.com/jackc/pgservicefile v0.0.0-20200714003250-2b9c44734f2b // indirect
+	github.com/jackc/puddle/v2 v2.1.2 // indirect
 	github.com/json-iterator/go v1.1.12 // indirect
 	github.com/leodido/go-urn v1.2.1 // indirect
 	github.com/mattn/go-isatty v0.0.16 // indirect
@@ -24,8 +28,9 @@ require (
 	github.com/modern-go/reflect2 v1.0.2 // indirect
 	github.com/pelletier/go-toml/v2 v2.0.6 // indirect
 	github.com/ugorji/go/codec v1.2.7 // indirect
-	golang.org/x/crypto v0.0.0-20211215153901-e495a2d5b3d3 // indirect
+	go.uber.org/atomic v1.10.0 // indirect
 	golang.org/x/net v0.4.0 // indirect
+	golang.org/x/sync v0.0.0-20220923202941-7f9b1623fab7 // indirect
 	golang.org/x/sys v0.3.0 // indirect
 	golang.org/x/text v0.5.0 // indirect
 	google.golang.org/protobuf v1.28.1 // indirect
