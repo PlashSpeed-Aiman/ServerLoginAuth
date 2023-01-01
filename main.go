@@ -2,10 +2,11 @@ package main
 
 import (
 	"ServerLoginAuth/routes"
+	"net/http"
+
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-contrib/sessions/cookie"
 	"github.com/gin-gonic/gin"
-	"net/http"
 )
 
 func main() {
@@ -13,8 +14,11 @@ func main() {
 	store := cookie.NewStore([]byte("secret"))
 	r.Use(sessions.Sessions("SESSION_ID", store))
 	r.Use(gin.Logger())
-	r.GET("/register", routes.Register)
+	r.POST("/register", routes.Register)
 	r.POST("/login", routes.Login)
+	r.NoRoute(func(ctx *gin.Context) {
+		ctx.JSON(http.StatusNotFound, gin.H{"message": "Are you lost? :/"})
+	})
 
 	authenticated := r.Group("/auth")
 	authenticated.Use(AuthRequired)
