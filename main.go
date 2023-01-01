@@ -1,15 +1,19 @@
 package main
 
 import (
+	"ServerLoginAuth/model/DB"
 	"ServerLoginAuth/routes"
 	"net/http"
 
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-contrib/sessions/cookie"
 	"github.com/gin-gonic/gin"
+	"net/http"
+
 )
 
 func main() {
+	DB.DBConn = DB.Setup()
 	r := gin.Default()
 	store := cookie.NewStore([]byte("secret"))
 	r.Use(sessions.Sessions("SESSION_ID", store))
